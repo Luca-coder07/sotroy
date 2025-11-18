@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOTROY - Suivi Hydratation</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive.css">
+  </head>
+  <body>
+    <div class="app-container">
+      <!-- Header -->
+      <header class="app-header">
+        <h1 class="app-title">SOTROY</h1>
+      </header>
+
+      <!-- Contenu Principal -->
+      <main class="main-content">
+        <!-- Cercle de progression -->
+        <section class="progress-section">
+          <div class="progress-circle">
+            <div class="water-container">
+              <div class="water-fill"></div>
+            </div>
+            <div class="circle-rotation"></div>
+            <div class="circle-fill-mask"></div>
+            <div class="circle-content">
+                <span class="consumed-amount">0</span>
+                <span class="remaining-amount">2000ml restant</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Bouton Ajout Rapide -->
+        <section class="quick-add-section">
+          <div class="quick-buttons">
+            <button class="water-btn" data-amount="250">250ml</button>
+            <button class="water-btn" data-amount="100">100ml</button>
+            <button class="water-btn" data-amount="20">20ml</button>
+          </div>
+        </section>
+      </main>
+
+      <!-- Navigation -->
+      <nav class="bottom-nav">
+        <a href="index.html" class="nav-item active">
+          <span class="nav-icon">💧</span>
+          <span class="nav-label">Acceuil</span>
+        </a>
+        <a href="history.html" class="nav-item">
+          <span class="nav-icon">📊</span>
+          <span class="nav-label">Historique</span>
+        </a>
+        <a href="settings.html" class="nav-item">
+          <span class="nav-icon">⚙️</span>
+          <span class="nav-label">Paramètres</span>
+        </a>
+      </nav>
+    </div>
+
+    <script src"js/navigation.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>
+

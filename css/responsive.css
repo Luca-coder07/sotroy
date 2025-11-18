@@ -1,0 +1,32 @@
+/* === RESPONSIVE DESIGN === */
+@media (max-width: 768px) {
+  .app-container {
+    max-width: 100px;
+  }
+
+  .progress-circle {
+    width: 200px;
+    height: 200px;
+  }
+
+  .water-btn {
+    padding: var(--space-sm) var(--space-md);
+    font-size: var(--font-size-sm);
+  }
+}
+
+@media (max-width: 480px) {
+  .app-title {
+    font-size: var(--font-size-xl);
+  }
+
+  .progress-circle {
+    width: 180px;
+    height: 180px;
+  }
+
+  .quick-buttons {
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historique - SOTROY</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive.css">
+  </head>
+  <body>
+    <div class="app-container">
+      <!-- Header -->
+      <header class="app-header">
+        <h1 class="app-title">SOTROY</h1>
+        <h2>Historique</h2>
+      </header>
+
+      <main class="main-content">
+        <!-- Ongets -->
+        <div class="tabs">
+          <button class="tab active" data-tab="daily">Journalier</button>
+          <button class="tab" data-tab="weekly">Hebdomadaire</button>
+        </div>
+
+        <!-- Graphique -->
+        <div class="chart-container">
+          <div class="wave-chart" id="waveChart">
+            <!-- Graphique en vague généré en JS -->
+          </div>
+        </div>
+      </main>
+
+      <!-- Navigation -->
+      <nav class="bottom-nav">
+        <a href="index.html" class="nav-item">
+          <span class="nav-icon">💧</span>
+          <span class="nav-label">Acceuil</span>
+        </a>
+        <a href="history.html" class="nav-item active">
+          <span class="nav-icon">📊</span>
+          <span class="nav-label">Historique</span>
+        </a>
+        <a href="settings.html" class="nav-item">
+          <span class="nav-icon">⚙️</span>
+          <span class="nav-label">Paramètres</span>
+        </a>
+      </nav>
+    </div>
+
+    <script src"js/navigation.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>
+

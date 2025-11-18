@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paramètres - SOTROY</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive.css">
+  </head>
+  <body>
+    <div class="app-container">
+      <!-- Header -->
+      <header class="app-header">
+        <h1 class="app-title">SOTROY</h1>
+        <h2>Paramètres</h2>
+      </header>
+
+      <!-- Contenu Principal -->
+      <main class="main-content">
+        <!-- Thèmes -->
+        <div class="setting-item">
+          <label>Thème sombre</label>
+          <div class="switch">
+            <input type="checkbox" id="themeToggle">
+            <span class="slider"></span>
+          </div>
+        </div>
+
+        <!-- Objectif quotidien -->
+        <div class="setting-item">
+          <label>Objectif quotidien</label>
+          <select id="dailyGoal">
+            <option value="1500">1500ml</option>
+            <option value="2000" selected>2000ml</option>
+            <option value="2500">2500ml</option>
+            <option value="3000">3000ml</option>
+          </select>
+        </div>
+      </main>
+
+      <!-- Notifications -->
+      <div class="setting-item">
+        <label>Rappels</label>
+        <select id="notificationInterval">
+          <option value="0">Désactivés</option>
+          <option value="10">Tous les 10 min</option>
+          <option value="15">Tous les 15 min</option>
+          <option value="30">Tous les 30 min</option>
+          <option value="60">Tous les 60 min</option>
+        </select>
+      </div>
+
+      <!-- Réinitialisation -->
+      <div class="setting-item">
+        <button id="resetData" class="btn-danger">Réinitialiser les données</button>
+      </div>
+
+      <!-- Navigation -->
+      <nav class="bottom-nav">
+        <a href="index.html" class="nav-item">
+          <span class="nav-icon">💧</span>
+          <span class="nav-label">Acceuil</span>
+        </a>
+        <a href="history.html" class="nav-item">
+          <span class="nav-icon">📊</span>
+          <span class="nav-label">Historique</span>
+        </a>
+        <a href="settings.html" class="nav-item active">
+          <span class="nav-icon">⚙️</span>
+          <span class="nav-label">Paramètres</span>
+        </a>
+      </nav>
+    </div>
+
+    <script src"js/navigation.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>
+
