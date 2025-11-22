@@ -25,8 +25,21 @@
 
         <!-- Graphique -->
         <div class="chart-container">
-          <div class="wave-chart" id="waveChart">
-            <!-- Graphique en vague généré en JS -->
+          <div class="chart" id="dailyChart">
+            <!-- Graphique Journalier -->
+            <div class="chart-bars" id="dailyBars"></div>
+          </div>
+          <div class="chart hidden" id="weeklyChart">
+            <!-- Graphique Hebdomadaire -->
+            <div class="chart-bars" id="weeklyBars"></div>
+          </div>
+        </div>
+
+        <!-- Liste détaillée -->
+        <div class="history-list">
+          <h3>Aujourd'hui</h3>
+          <div class="entries-list" id="todayEntries">
+            <!-- Entrée ajouté dynamiquement -->
           </div>
         </div>
       </main>
@@ -48,8 +61,9 @@
       </nav>
     </div>
 
-    <script src"js/navigation.js"></script>
-    <script src="js/app.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/navigation.js"></script>
+    <script src="js/charts.js"></script>
   </body>
 </html>
 

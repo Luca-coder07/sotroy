@@ -255,3 +255,238 @@ input:checked + .slider {
 input:checked + .slider:before {
   transform: translateX(26px);
 }
+
+/* === HISTORIQUES & GRAPHIQUES === */
+.tabs {
+  display: flex;
+  background: var(--medium-gray);
+  border-radius: var(--radius-md);
+  padding: 4px;
+  margin-bottom: var(--space-lg);
+}
+
+.tab {
+  flex: 1;
+  padding: var(--space-sm) var(--space-md);
+  border: none;
+  background: transparent;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.tab.active {
+  background: var(--white);
+  box-shadow: var(--shadow);
+}
+
+.chart-container {
+  background: var(--white);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-lg);
+  box-shadow: var(--shadow);
+}
+
+.chart-bars {
+  display: flex;
+  align-items: end;
+  justify-content: space-around;
+  height: 200px;
+  gap: var(--space-md);
+}
+
+.chart-bar-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  height: 100%;
+}
+
+.chart-bar {
+  background: linear-gradient(to top, var(--primary-blue), var(--light-blue));
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  width: 100%;
+  min-height: 20px;
+  transition: height 0.5s ease;
+  position: relative;
+  display: flex;
+  align-items: end;
+  justify-content: center;
+}
+
+.chart-value {
+  color: var(--white);
+  font-size: var(--font-size-sm);
+  font-weight: bold;
+  margin-bottom: 4px;
+  text-shadow: 0 1px 2px  rgba(0, 0, 0, 0.3);
+}
+
+.chart-label {
+  margin-top: var(--space-sm);
+  font-size: var(--font-size-sm);
+  color: var(--dark-gray);
+  font-weight: 500;
+}
+
+.history-list {
+  background: var(--white);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  box-shadow: var(--shadow);
+}
+
+.history-list h3 {
+  color: var(--primary-blue);
+  margin-bottom: var(--space-md);
+}
+
+.entries-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.entry-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-sm);
+  background: var(--light-gray);
+  border-radius: var(--radius-sm);
+  transition: background 0.3 ease;
+}
+
+.entry-item:hover {
+  background: var(--medium-gray);
+}
+
+.entry-time {
+  color: var(--dark-gray);
+  font-weight: 500;
+}
+
+.entry-amount {
+  color: var(--primary-blue);
+  font-weight: bold;
+}
+
+.empty-state {
+  text-align: center;
+  padding: var(--space-xl);
+  color: var(--gray);
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* === PARAMÈTRES === */
+.settings-section {
+    background: var(--white);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    margin-bottom: var(--space-lg);
+    box-shadow: var(--shadow);
+}
+
+.settings-section h3 {
+    color: var(--primary-blue);
+    margin-bottom: var(--space-md);
+    border-bottom: 2px solid var(--light-gray);
+    padding-bottom: var(--space-sm);
+}
+
+.setting-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-md) 0;
+    border-bottom: 1px solid var(--light-gray);
+}
+
+.setting-item:last-child {
+    border-bottom: none;
+}
+
+.setting-item label {
+    font-weight: 500;
+    color: var(--text);
+}
+
+.setting-select {
+    padding: 8px 12px;
+    border: 1px solid var(--medium-gray);
+    border-radius: var(--radius-sm);
+    background: var(--white);
+    color: var(--text);
+    min-width: 150px;
+}
+
+/* Modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: var(--white);
+    padding: var(--space-xl);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+}
+
+.modal-content h3 {
+    color: var(--primary-blue);
+    margin-bottom: var(--space-md);
+}
+
+.modal-actions {
+    display: flex;
+    gap: var(--space-md);
+    justify-content: center;
+    margin-top: var(--space-lg);
+}
+
+/* Animations */
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .setting-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-sm);
+    }
+
+    .setting-select {
+        width: 100%;
+    }
+
+    .modal-actions {
+        flex-direction: column;
+    }
+}

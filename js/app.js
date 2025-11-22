@@ -6,7 +6,16 @@ const waterButtons = document.querySelectorAll('.water-btn');
 
 // Données actuelles
 let currentConsumption = 0;
-const dailyGoal = 2000;
+let dailyGoal = 2000;
+
+// Charger les données au démarrage
+function loadInitialData() {
+  const todayData = waterStorage.getTodayData();
+  dailyGoal = waterStorage.getDailyGoal();
+
+  currentConsumption = todayData.total;
+  updateDisplay();
+}
 
 // Mettre à jour l'affichage
 function updateDisplay() {
@@ -36,18 +45,25 @@ function updateDisplay() {
 
 // AJouter de l'eau
 function addWater(amount) {
-  currentConsumption += amount;
+  // Sauvegarder dans le storage
+  const success = waterStorage.addWaterConsumption(amount);
 
-  // Animation
-  const button = event.target;
-  button.style.transform = 'scale(0.95)';
-  setTimeout(() => {
-    button.style.transform = '';
-  }, 150);
+  if (success) {
+    // Metter à jour l'affichage local
+    currentConsumption += amount;
 
-  // Animation de vague dans le cercle
-  createWaveAnimation();
-  updateDisplay();
+    // Animation du bouton
+    const button = event.target;
+    button.style.transform = 'scale(0.95)';
+    setTimeout(() => {
+      button.style.transform = '';
+    }, 150);
+
+    createWaveAnimation();
+    updateDisplay();
+  } else {
+    alert('Erreur lors de la sauvegarde');
+  }
 }
 
 // Animation de vague dans le cercle
@@ -81,5 +97,7 @@ waterButtons.forEach(button => {
   });
 });
 
-// Initialisation
-updateDisplay();
+// Initialisation au chargement
+document.addEventListener('DOMContentLoaded', function() {
+  loadInitialData();
+})

@@ -1,80 +1,124 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Paramètres - SOTROY</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/responsive.css">
-  </head>
-  <body>
+</head>
+<body>
     <div class="app-container">
-      <!-- Header -->
-      <header class="app-header">
-        <h1 class="app-title">SOTROY</h1>
-        <h2>Paramètres</h2>
-      </header>
+        <header class="app-header">
+            <h1 class="app-title">SOTROY</h1>
+            <h2 class="page-subtitle">Paramètres</h2>
+        </header>
 
-      <!-- Contenu Principal -->
-      <main class="main-content">
-        <!-- Thèmes -->
-        <div class="setting-item">
-          <label>Thème sombre</label>
-          <div class="switch">
-            <input type="checkbox" id="themeToggle">
-            <span class="slider"></span>
-          </div>
-        </div>
+        <main class="main-content">
+            <!-- Section Objectif -->
+            <div class="settings-section">
+                <h3>Objectif Quotidien</h3>
+                <div class="setting-item">
+                    <label for="dailyGoal">Objectif (ml)</label>
+                    <select id="dailyGoal" class="setting-select">
+                        <option value="1500">1500 ml</option>
+                        <option value="2000">2000 ml</option>
+                        <option value="2500">2500 ml</option>
+                        <option value="3000">3000 ml</option>
+                    </select>
+                </div>
+            </div>
 
-        <!-- Objectif quotidien -->
-        <div class="setting-item">
-          <label>Objectif quotidien</label>
-          <select id="dailyGoal">
-            <option value="1500">1500ml</option>
-            <option value="2000" selected>2000ml</option>
-            <option value="2500">2500ml</option>
-            <option value="3000">3000ml</option>
-          </select>
-        </div>
-      </main>
+            <!-- Section Unités -->
+            <div class="settings-section">
+                <h3>Unités de Mesure</h3>
+                <div class="setting-item">
+                    <label for="unitMeasure">Unité</label>
+                    <select id="unitMeasure" class="setting-select">
+                        <option value="ml">Millilitres (ml)</option>
+                        <option value="L">Litres (L)</option>
+                        <option value="verre">Verres (250ml)</option>
+                    </select>
+                </div>
+            </div>
 
-      <!-- Notifications -->
-      <div class="setting-item">
-        <label>Rappels</label>
-        <select id="notificationInterval">
-          <option value="0">Désactivés</option>
-          <option value="10">Tous les 10 min</option>
-          <option value="15">Tous les 15 min</option>
-          <option value="30">Tous les 30 min</option>
-          <option value="60">Tous les 60 min</option>
-        </select>
-      </div>
+            <!-- Section Notifications -->
+            <div class="settings-section">
+                <h3>Notifications</h3>
+                <div class="setting-item">
+                    <label for="notificationToggle">Activer les rappels</label>
+                    <div class="switch">
+                        <input type="checkbox" id="notificationToggle">
+                        <span class="slider"></span>
+                    </div>
+                </div>
+                <div class="setting-item" id="notificationIntervalContainer">
+                    <label for="notificationInterval">Intervalle des rappels</label>
+                    <select id="notificationInterval" class="setting-select">
+                        <option value="10">Toutes les 10 minutes</option>
+                        <option value="15">Toutes les 15 minutes</option>
+                        <option value="30">Toutes les 30 minutes</option>
+                        <option value="60">Toutes les heures</option>
+                    </select>
+                </div>
+            </div>
 
-      <!-- Réinitialisation -->
-      <div class="setting-item">
-        <button id="resetData" class="btn-danger">Réinitialiser les données</button>
-      </div>
+            <!-- Section Thème -->
+            <div class="settings-section">
+                <h3>Apparence</h3>
+                <div class="setting-item">
+                    <label for="themeToggle">Thème sombre</label>
+                    <div class="switch">
+                        <input type="checkbox" id="themeToggle">
+                        <span class="slider"></span>
+                    </div>
+                </div>
+            </div>
 
-      <!-- Navigation -->
-      <nav class="bottom-nav">
-        <a href="index.html" class="nav-item">
-          <span class="nav-icon">💧</span>
-          <span class="nav-label">Acceuil</span>
-        </a>
-        <a href="history.html" class="nav-item">
-          <span class="nav-icon">📊</span>
-          <span class="nav-label">Historique</span>
-        </a>
-        <a href="settings.html" class="nav-item active">
-          <span class="nav-icon">⚙️</span>
-          <span class="nav-label">Paramètres</span>
-        </a>
-      </nav>
+            <!-- Section Données -->
+            <div class="settings-section">
+                <h3>Données</h3>
+                <div class="setting-item">
+                    <button id="exportData" class="btn-secondary">Exporter les données</button>
+                </div>
+                <div class="setting-item">
+                    <button id="resetData" class="btn-danger">Réinitialiser toutes les données</button>
+                </div>
+            </div>
+
+            <!-- Modal de confirmation -->
+            <div id="confirmModal" class="modal hidden">
+                <div class="modal-content">
+                    <h3>Confirmation</h3>
+                    <p id="modalMessage">Êtes-vous sûr de vouloir réinitialiser toutes les données ?</p>
+                    <div class="modal-actions">
+                        <button id="confirmCancel" class="btn-secondary">Annuler</button>
+                        <button id="confirmOk" class="btn-danger">Confirmer</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Navigation -->
+        <nav class="bottom-nav">
+            <a href="index.html" class="nav-item">
+                <span class="nav-icon">💧</span>
+                <span class="nav-label">Accueil</span>
+            </a>
+            <a href="history.html" class="nav-item">
+                <span class="nav-icon">📊</span>
+                <span class="nav-label">Historique</span>
+            </a>
+            <a href="settings.html" class="nav-item active">
+                <span class="nav-icon">⚙️</span>
+                <span class="nav-label">Paramètres</span>
+            </a>
+        </nav>
     </div>
 
-    <script src"js/navigation.js"></script>
-    <script src="js/app.js"></script>
-  </body>
+    <script src="js/storage.js"></script>
+    <script src="js/navigation.js"></script>
+    <script src="js/settings.js"></script>
+</body>
 </html>
-
