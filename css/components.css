@@ -516,3 +516,62 @@ input:checked + .slider:before {
         flex-direction: column;
     }
 }
+
+/* === ANIMATIONS MESSAGES DE MOTIVATION === */
+@keyframes slideUpMotivation {
+    0% { 
+        opacity: 0; 
+        transform: translateX(-50%) translateY(30px) scale(0.9);
+    }
+    15% { 
+        opacity: 1; 
+        transform: translateX(-50%) translateY(0) scale(1);
+    }
+    85% { 
+        opacity: 1; 
+        transform: translateX(-50%) translateY(0) scale(1);
+    }
+    100% { 
+        opacity: 0; 
+        transform: translateX(-50%) translateY(-30px) scale(0.9);
+    }
+}
+
+@keyframes celebrateMessage {
+    0% { 
+        opacity: 0; 
+        transform: translateX(-50%) translateY(30px) scale(0.8);
+    }
+    15% { 
+        opacity: 1; 
+        transform: translateX(-50%) translateY(0) scale(1.1);
+    }
+    25% { 
+        transform: translateX(-50%) translateY(0) scale(1);
+    }
+    85% { 
+        opacity: 1; 
+        transform: translateX(-50%) translateY(0) scale(1);
+    }
+    100% { 
+        opacity: 0; 
+        transform: translateX(-50%) translateY(-30px) scale(0.9);
+    }
+}
+
+/* Responsive pour les messages */
+@media (max-width: 480px) {
+    .motivation-message {
+        bottom: 80px !important;
+        padding: 10px 20px !important;
+        font-size: 0.9rem;
+        max-width: 90%;
+    }
+}
+
+@media (min-width: 769px) {
+    .motivation-message {
+        bottom: 120px !important;
+        font-size: 1rem;
+    }
+}
