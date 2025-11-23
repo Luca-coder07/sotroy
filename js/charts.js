@@ -9,8 +9,40 @@ class ChartsManager {
   }
 
   init() {
+    this.loadTheme();
     this.setupEventListeners();
     this.loadDailyData();
+  }
+
+  // Charger et appliquer le thème
+  loadTheme() {
+    const isDark = localStorage.getItem('sotroyDarkTheme') === 'true';
+    this.applyTheme(isDark);
+  }
+
+  applyTheme(isDark) {
+    if (isDark) {
+      document.documentElement.style.setProperty('--white','#2c3e50');
+      document.documentElement.style.setProperty('--light-gray','#34495e');
+      document.documentElement.style.setProperty('--text','#ecf0f1');
+      document.documentElement.style.setProperty('--dark-gray','#bdc3c7');
+      document.documentElement.style.setProperty('--medium-gray','#4a6572');
+    } else {
+      document.documentElement.style.setProperty('--white','#ffffff');
+      document.documentElement.style.setProperty('--light-gray','#f8f9fa');
+      document.documentElement.style.setProperty('--text','#2c3e50');
+      document.documentElement.style.setProperty('--dark-gray','#343a40');
+      document.documentElement.style.setProperty('--medium-gray','#e9ecef');
+    }
+  }
+
+  getCurrentUnit() {
+    const data = waterStorage.loadData();
+    return data?.userSettings?.unit || 'ml';
+  }
+
+  formatWithUnit(mlValue) {
+    return `${mlValue}ml`;
   }
 
   setupEventListeners() {
@@ -19,6 +51,12 @@ class ChartsManager {
       tab.addEventListener('click', (e) => {
         this.switchTab(e.target.dataset.tab);
       });
+    });
+
+    // Ecouter les changements de thèmes
+    window.addEventListener('settingsChanged', () => {
+      const isDark = localStorage.getItem('sotroyDarkTheme') === 'true';
+      this.applyTheme(isDark);
     });
   }
 
@@ -59,7 +97,7 @@ class ChartsManager {
     this.dailyBars.innerHTML = `
       <div class="chart-bar-container">
         <div class="chart-bar" style="height: ${percentage}%">
-          <span class="chart-value">${todayData.total}ml</span>
+          <span class="chart-value">${this.formatWithUnit(todayData.total)}</span>
         </div>
         <span class="chart-label">Aujourd'hui</span>
       </div>
@@ -77,7 +115,7 @@ class ChartsManager {
       barsHTML += `
         <div class="chart-bar-container">
           <div class="chart-bar" style="height: ${percentage}%">
-            <span class="chart-value">${dayData.total}ml</span>
+            <span class="chart-value">${this.formatWithUnit(dayData.total)}</span>
           </div>
           <span class="chart-label">${dayName}</span>
         </div>

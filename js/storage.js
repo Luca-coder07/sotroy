@@ -142,6 +142,39 @@ class WaterStorage {
     };
     return this.saveData(initialData);
   }
+
+  // Evenements personnalisés pour la synchronisation
+  triggerDataChange() {
+    window.dispatchEvent(new CustomEvent('waterDataChanged'));
+  }
+
+  triggerSettingsChange() {
+    window.dispatchEvent(new CustomEvent('settingsChanged'));
+  }
+
+  // Mettre à jour les notifications
+  setNotifications(enabled, interval = 30) {
+    const data = this.loadData();
+    if (!data) return false;
+
+    data.userSettings.notifications = enabled;
+    data.userSettings.reminderInterval = interval;
+    const success = this.saveData(data);
+    if (success) {
+      this.triggerSettingsChange();
+    }
+    return success;
+  }
+
+  setTheme(isDark) {
+    localStorage.setItem('sotroyDarkTheme', isDark);
+    this.triggerSettingsChange();
+    return true;
+  }
+
+  getTheme() {
+    return localStorage.getItem('sotroyDarkTheme') === 'true';
+  }
 }
 
 // Création d'une instance globale

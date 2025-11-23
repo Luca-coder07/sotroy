@@ -2,7 +2,6 @@ class SettingsManager {
     constructor() {
         this.elements = {
             dailyGoal: document.getElementById('dailyGoal'),
-            unitMeasure: document.getElementById('unitMeasure'),
             notificationToggle: document.getElementById('notificationToggle'),
             notificationInterval: document.getElementById('notificationInterval'),
             notificationIntervalContainer: document.getElementById('notificationIntervalContainer'),
@@ -32,9 +31,6 @@ class SettingsManager {
         // Objectif quotidien
         this.elements.dailyGoal.value = settings.dailyGoal;
 
-        // Unité de mesure
-        this.elements.unitMeasure.value = settings.unit || 'ml';
-
         // Notifications
         this.elements.notificationToggle.checked = settings.notifications || false;
         this.elements.notificationInterval.value = settings.reminderInterval || 30;
@@ -49,10 +45,6 @@ class SettingsManager {
         // Sauvegarde automatique des paramètres
         this.elements.dailyGoal.addEventListener('change', () => {
             this.saveDailyGoal();
-        });
-
-        this.elements.unitMeasure.addEventListener('change', () => {
-            this.saveUnitMeasure();
         });
 
         this.elements.notificationToggle.addEventListener('change', (e) => {
@@ -98,47 +90,34 @@ class SettingsManager {
         }
     }
 
-    saveUnitMeasure() {
-        const data = waterStorage.loadData();
-        if (!data) return;
-
-        data.userSettings.unit = this.elements.unitMeasure.value;
-        const success = waterStorage.saveData(data);
-        
-        if (success) {
-            this.showSuccessMessage('Unité de mesure mise à jour !');
-        } else {
-            this.showErrorMessage('Erreur lors de la sauvegarde');
-        }
-    }
-
     saveNotificationSettings() {
-        const data = waterStorage.loadData();
-        if (!data) return;
-
-        data.userSettings.notifications = this.elements.notificationToggle.checked;
-        data.userSettings.reminderInterval = parseInt(this.elements.notificationInterval.value);
+      const enabled = this.elements.notificationToggle.checked;
+      const interval = parseInt(this.elements.notificationInterval.value);
+      const success = waterStorage.setNotifications(enabled, interval);
         
-        const success = waterStorage.saveData(data);
-        
-        if (success) {
-            this.showSuccessMessage('Paramètres de notification mis à jour !');
-            
-            // Démarrer/arrêter les notifications
-            if (data.userSettings.notifications) {
-                this.startNotifications();
-            } else {
-                this.stopNotifications();
-            }
+      if (success) {
+        this.showSuccessMessage('Paramètres de notification mis à jour !');
+       
+        // Démarrer/arrêter les notifications
+         if (enabled) {
+          this.startNotifications();
         } else {
-            this.showErrorMessage('Erreur lors de la sauvegarde');
+          this.stopNotifications();
         }
+      } else {
+        this.showErrorMessage('Erreur lors de la sauvegarde');
+      }
     }
 
     saveTheme(isDark) {
-        localStorage.setItem('sotroyDarkTheme', isDark);
+      const success = waterStorage.setTheme(isDark);
+
+      if (success) {
         this.applyTheme(isDark);
         this.showSuccessMessage('Thème mis à jour !');
+      } else {
+        this.showErrorMessage('Erreur lors du chargement de thème');
+      }
     }
 
     applyTheme(isDark) {
