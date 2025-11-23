@@ -76,6 +76,8 @@ function updateDisplay() {
       var(--primary-blue),
       var(--light-blue))`;
   }
+
+  showMotivationalMessage(percentage);
 }
 
 // AJouter de l'eau
