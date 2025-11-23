@@ -129,6 +129,82 @@ function showAddConfirmation(amount) {
   }, 1500);
 }
 
+function showMotivationalMessage(percentage) {
+    // Éviter les messages répétitifs
+    if (this.lastMotivationPercentage === percentage) return;
+    this.lastMotivationPercentage = percentage;
+    
+    const messages = {
+        25: { text: "💪 Bon début ! Continue comme ça !", type: "info" },
+        50: { text: "🎉 Bravo ! Tu as atteint la moitié !", type: "success" },
+        75: { text: "🔥 Excellent ! Plus que quelques gorgées !", type: "warning" },
+        100: { text: "🏆 Objectif atteint ! Tu es super hydraté !", type: "celebration" }
+    };
+    
+    const milestones = [25, 50, 75, 100];
+    const reachedMilestone = milestones.find(m => percentage >= m && percentage < m + 5);
+    
+    if (reachedMilestone && messages[reachedMilestone]) {
+        const messageData = messages[reachedMilestone];
+        createMotivationMessage(messageData.text, messageData.type);
+    }
+}
+
+function createMotivationMessage(text, type) {
+    // Supprimer tout message existant
+    const existingMessage = document.querySelector('.motivation-message');
+    if (existingMessage) {
+        existingMessage.remove();
+    }
+    
+    const message = document.createElement('div');
+    message.className = `motivation-message motivation-${type}`;
+    message.textContent = text;
+    
+    // Styles de base
+    message.style.cssText = `
+        position: fixed;
+        bottom: 100px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--primary-blue);
+        color: white;
+        padding: 12px 24px;
+        border-radius: 25px;
+        font-weight: 600;
+        z-index: 999;
+        animation: slideUpMotivation 3s ease-in-out forwards;
+        text-align: center;
+        max-width: 80%;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        border: 2px solid rgba(255,255,255,0.2);
+    `;
+    
+    // Styles selon le type
+    switch(type) {
+        case 'success':
+            message.style.background = 'var(--success)';
+            break;
+        case 'warning':
+            message.style.background = 'var(--warning)';
+            break;
+        case 'celebration':
+            message.style.background = 'linear-gradient(45deg, var(--success), var(--primary-blue))';
+            message.style.animation = 'celebrateMessage 3s ease-in-out forwards';
+            break;
+    }
+    
+    document.body.appendChild(message);
+    
+    // Supprimer après l'animation
+    setTimeout(() => {
+        if (message.parentNode) {
+            message.remove();
+        }
+    }, 3000);
+}
+
+
 // Animation de vague dans le cercle
 function createWaveAnimation() {
   const wave = document.createElement('div');
