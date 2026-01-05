@@ -11,9 +11,9 @@ function applyTheme(isDark) {
     document.documentElement.style.setProperty('--text', '#ecf0f1');
     document.documentElement.style.setProperty('--dark-gray', '#bdc3c7');
     document.documentElement.style.setProperty('--medium-gray', '#4a6572');
-  } else {
-    document.documentElement.style.setProperty('--white', '#fffff');
-    document.documentElement.style.setProperty('--light-gray', '#f8f9fa');
+   } else {
+     document.documentElement.style.setProperty('--white', '#ffffff');
+     document.documentElement.style.setProperty('--light-gray', '#f8f9fa');
     document.documentElement.style.setProperty('--text', '#2c3e50');
     document.documentElement.style.setProperty('--dark-gray', '#343a40');
     document.documentElement.style.setProperty('--medium-gray', '#e9ecef');
@@ -107,20 +107,20 @@ function showAddConfirmation(amount) {
   const confirmation = document.createElement('div');
   confirmation.className = 'add-confirmation';
   confirmation.textContent = `+${amount}ml 💧!`;
-  confirmation.style.cssText = `
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: var(--success);
-    color: white;
-    padding: 12px 24px;
-    border-radius: 25px;
-    font-weight: bold;
-    z-index = 12;
-    animation: fadeInOut 1.5s ease-in-out;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-  `;
+   confirmation.style.cssText = `
+     position: fixed;
+     top: 50%;
+     left: 50%;
+     transform: translate(-50%, -50%);
+     background: var(--success);
+     color: white;
+     padding: 12px 24px;
+     border-radius: 25px;
+     font-weight: bold;
+     z-index: 12;
+     animation: fadeInOut 1.5s ease-in-out;
+     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+   `;
 
   document.body.appendChild(confirmation);
 

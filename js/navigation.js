@@ -1,5 +1,5 @@
 // Marquer la navigation active
-document.addEventListener('DOMCOntentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
   const navItems = document.querySelectorAll('.nav-item');
 
@@ -17,11 +17,11 @@ document.addEventListener('DOMCOntentLoaded', function() {
     const isDark = localStorage.getItem('sotroyDarkTheme') === 'true';
 
     if (isDark) {
-      document.documentElement.style.setProperty('--white', '#2c3e50');
-      document.documentElement.style.setProperty('--light-gray', '#34495e');
-      document.documentElement.style.setProperty('--text', '#ecf0f1');
-      document.documentElement.style.setProperty('--dark-gray', '#bdc3c7');
-      document.documentElement.style.setProperty('--medium-gray', '4a6572');
+       document.documentElement.style.setProperty('--white', '#2c3e50');
+       document.documentElement.style.setProperty('--light-gray', '#34495e');
+       document.documentElement.style.setProperty('--text', '#ecf0f1');
+       document.documentElement.style.setProperty('--dark-gray', '#bdc3c7');
+       document.documentElement.style.setProperty('--medium-gray', '#4a6572');
     } else {
       document.documentElement.style.setProperty('--white', '#ffffff');
       document.documentElement.style.setProperty('--light-gray', '#f8f9fa');
