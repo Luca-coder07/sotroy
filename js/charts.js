@@ -36,14 +36,23 @@ class ChartsManager {
     }
   }
 
-  getCurrentUnit() {
-    const data = waterStorage.loadData();
-    return data?.userSettings?.unit || 'ml';
-  }
+   getCurrentUnit() {
+     const data = waterStorage.loadData();
+     return data?.userSettings?.unit || 'ml';
+   }
 
-  formatWithUnit(mlValue) {
-    return `${mlValue}ml`;
-  }
+   formatWithUnit(mlValue) {
+     const unit = this.getCurrentUnit();
+     
+     switch(unit) {
+       case 'L':
+         return `${(mlValue / 1000).toFixed(2)}L`;
+       case 'verre':
+         return `${(mlValue / 250).toFixed(1)}v`;
+       default:
+         return `${mlValue}ml`;
+     }
+   }
 
   setupEventListeners() {
     // Gestion des onglets

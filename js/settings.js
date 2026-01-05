@@ -1,21 +1,22 @@
 class SettingsManager {
     constructor() {
-        this.elements = {
-            dailyGoal: document.getElementById('dailyGoal'),
-            notificationToggle: document.getElementById('notificationToggle'),
-            notificationInterval: document.getElementById('notificationInterval'),
-            notificationIntervalContainer: document.getElementById('notificationIntervalContainer'),
-            themeToggle: document.getElementById('themeToggle'),
-            exportData: document.getElementById('exportData'),
-            resetData: document.getElementById('resetData'),
-            confirmModal: document.getElementById('confirmModal'),
-            modalMessage: document.getElementById('modalMessage'),
-            confirmCancel: document.getElementById('confirmCancel'),
-            confirmOk: document.getElementById('confirmOk')
-        };
+         this.elements = {
+             dailyGoal: document.getElementById('dailyGoal'),
+             unitMeasure: document.getElementById('unitMeasure'),
+             notificationToggle: document.getElementById('notificationToggle'),
+             notificationInterval: document.getElementById('notificationInterval'),
+             notificationIntervalContainer: document.getElementById('notificationIntervalContainer'),
+             themeToggle: document.getElementById('themeToggle'),
+             exportData: document.getElementById('exportData'),
+             resetData: document.getElementById('resetData'),
+             confirmModal: document.getElementById('confirmModal'),
+             modalMessage: document.getElementById('modalMessage'),
+             confirmCancel: document.getElementById('confirmCancel'),
+             confirmOk: document.getElementById('confirmOk')
+         };
 
-        this.init();
-    }
+         this.init();
+     }
 
     init() {
         this.loadCurrentSettings();
@@ -23,72 +24,95 @@ class SettingsManager {
     }
 
     loadCurrentSettings() {
-        const data = waterStorage.loadData();
-        if (!data) return;
+         const data = waterStorage.loadData();
+         if (!data) return;
 
-        const settings = data.userSettings;
+         const settings = data.userSettings;
 
-        // Objectif quotidien
-        this.elements.dailyGoal.value = settings.dailyGoal;
+         // Objectif quotidien
+         this.elements.dailyGoal.value = settings.dailyGoal;
 
-        // Notifications
-        this.elements.notificationToggle.checked = settings.notifications || false;
-        this.elements.notificationInterval.value = settings.reminderInterval || 30;
-        this.toggleNotificationInterval(settings.notifications);
+         // Unités de mesure
+         this.elements.unitMeasure.value = settings.unit || 'ml';
 
-        // Thème
-        this.elements.themeToggle.checked = localStorage.getItem('sotroyDarkTheme') === 'true';
-        this.applyTheme(this.elements.themeToggle.checked);
-    }
+         // Notifications
+         this.elements.notificationToggle.checked = settings.notifications || false;
+         this.elements.notificationInterval.value = settings.reminderInterval || 30;
+         this.toggleNotificationInterval(settings.notifications);
 
-    setupEventListeners() {
-        // Sauvegarde automatique des paramètres
-        this.elements.dailyGoal.addEventListener('change', () => {
-            this.saveDailyGoal();
-        });
+         // Thème
+         this.elements.themeToggle.checked = localStorage.getItem('sotroyDarkTheme') === 'true';
+         this.applyTheme(this.elements.themeToggle.checked);
+     }
 
-        this.elements.notificationToggle.addEventListener('change', (e) => {
-            this.saveNotificationSettings();
-            this.toggleNotificationInterval(e.target.checked);
-        });
+     setupEventListeners() {
+         // Sauvegarde automatique des paramètres
+         this.elements.dailyGoal.addEventListener('change', () => {
+             this.saveDailyGoal();
+         });
 
-        this.elements.notificationInterval.addEventListener('change', () => {
-            this.saveNotificationSettings();
-        });
+         this.elements.unitMeasure.addEventListener('change', () => {
+             this.saveUnitMeasure();
+         });
 
-        this.elements.themeToggle.addEventListener('change', (e) => {
-            this.saveTheme(e.target.checked);
-        });
+         this.elements.notificationToggle.addEventListener('change', (e) => {
+             this.saveNotificationSettings();
+             this.toggleNotificationInterval(e.target.checked);
+         });
 
-        // Boutons d'actions
-        this.elements.exportData.addEventListener('click', () => {
-            this.exportData();
-        });
+         this.elements.notificationInterval.addEventListener('change', () => {
+             this.saveNotificationSettings();
+         });
 
-        this.elements.resetData.addEventListener('click', () => {
-            this.showResetConfirmation();
-        });
+         this.elements.themeToggle.addEventListener('change', (e) => {
+             this.saveTheme(e.target.checked);
+         });
 
-        // Modal de confirmation
-        this.elements.confirmCancel.addEventListener('click', () => {
-            this.hideModal();
-        });
+         // Boutons d'actions
+         this.elements.exportData.addEventListener('click', () => {
+             this.exportData();
+         });
 
-        this.elements.confirmOk.addEventListener('click', () => {
-            this.confirmReset();
-        });
-    }
+         this.elements.resetData.addEventListener('click', () => {
+             this.showResetConfirmation();
+         });
 
-    saveDailyGoal() {
-        const goal = parseInt(this.elements.dailyGoal.value);
-        const success = waterStorage.setDailyGoal(goal);
-        
-        if (success) {
-            this.showSuccessMessage('Objectif mis à jour !');
-        } else {
-            this.showErrorMessage('Erreur lors de la sauvegarde');
-        }
-    }
+         // Modal de confirmation
+         this.elements.confirmCancel.addEventListener('click', () => {
+             this.hideModal();
+         });
+
+         this.elements.confirmOk.addEventListener('click', () => {
+             this.confirmReset();
+         });
+     }
+
+     saveDailyGoal() {
+         const goal = parseInt(this.elements.dailyGoal.value);
+         const success = waterStorage.setDailyGoal(goal);
+         
+         if (success) {
+             this.showSuccessMessage('Objectif mis à jour !');
+         } else {
+             this.showErrorMessage('Erreur lors de la sauvegarde');
+         }
+     }
+
+     saveUnitMeasure() {
+         const unit = this.elements.unitMeasure.value;
+         const data = waterStorage.loadData();
+         if (!data) return;
+
+         data.userSettings.unit = unit;
+         const success = waterStorage.saveData(data);
+
+         if (success) {
+             waterStorage.triggerDataChange();
+             this.showSuccessMessage('Unité mise à jour !');
+         } else {
+             this.showErrorMessage('Erreur lors de la sauvegarde');
+         }
+     }
 
     saveNotificationSettings() {
       const enabled = this.elements.notificationToggle.checked;
@@ -139,13 +163,78 @@ class SettingsManager {
     }
 
     startNotifications() {
-        // À implémenter avec l'API Notifications
-        console.log('Notifications démarrées');
+        // Vérifier la permission des notifications
+        if ('Notification' in window) {
+            if (Notification.permission === 'granted') {
+                this.scheduleNotifications();
+            } else if (Notification.permission !== 'denied') {
+                Notification.requestPermission().then(permission => {
+                    if (permission === 'granted') {
+                        this.scheduleNotifications();
+                    }
+                });
+            }
+        } else {
+            console.warn('Les notifications ne sont pas supportées par ce navigateur');
+        }
     }
 
     stopNotifications() {
-        // À implémenter avec l'API Notifications
-        console.log('Notifications arrêtées');
+        // Arrêter tous les intervalles de notifications
+        if (window.notificationIntervals) {
+            window.notificationIntervals.forEach(id => clearInterval(id));
+            window.notificationIntervals = [];
+        }
+    }
+
+    scheduleNotifications() {
+        // Arrêter les anciennes notifications
+        this.stopNotifications();
+
+        const data = waterStorage.loadData();
+        const interval = data?.userSettings?.reminderInterval || 30;
+        const intervalMs = interval * 60 * 1000; // Convertir en millisecondes
+
+        // Initialiser le tableau s'il n'existe pas
+        if (!window.notificationIntervals) {
+            window.notificationIntervals = [];
+        }
+
+        // Planifier un rappel immédiat
+        this.sendNotification();
+
+        // Puis planifier les rappels récurrents
+        const notificationId = setInterval(() => {
+            this.sendNotification();
+        }, intervalMs);
+
+        window.notificationIntervals.push(notificationId);
+        console.log(`Notifications planifiées chaque ${interval} minutes`);
+    }
+
+    sendNotification() {
+        const todayData = waterStorage.getTodayData();
+        const dailyGoal = waterStorage.getDailyGoal();
+        const remaining = Math.max(0, dailyGoal - todayData.total);
+
+        let title = '💧 Reminder - Hydrate toi!';
+        let options = {
+            icon: '💧',
+            badge: '💧',
+            tag: 'hydration-reminder',
+            requireInteraction: false
+        };
+
+        if (remaining <= 0) {
+            title = '🎉 Objectif atteint!';
+            options.body = 'Bravo! Tu as atteint ton objectif d\'hydratation pour aujourd\'hui!';
+        } else {
+            options.body = `Tu dois encore boire ${remaining}ml d'eau pour atteindre ton objectif de ${dailyGoal}ml`;
+        }
+
+        if ('Notification' in window && Notification.permission === 'granted') {
+            new Notification(title, options);
+        }
     }
 
     exportData() {

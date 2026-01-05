@@ -26,6 +26,18 @@ window.addEventListener('settingsChanged', function() {
   applyTheme(isDark);
 });
 
+// Écouter les changements de données (unités, objectif)
+window.addEventListener('waterDataChanged', function() {
+  const data = waterStorage.loadData();
+  if (data && data.userSettings) {
+    const newUnit = data.userSettings.unit || 'ml';
+    if (newUnit !== currentUnit) {
+      currentUnit = newUnit;
+      updateDisplay();
+    }
+  }
+});
+
 // Éléments DOM
 const consumedAmount = document.querySelector('.consumed-amount');
 const remainingAmount = document.querySelector('.remaining-amount');
@@ -51,14 +63,26 @@ function loadInitialData() {
   updateDisplay();
 }
 
+// Fonction pour formater avec les unités
+function formatAmount(mlValue) {
+  switch(currentUnit) {
+    case 'L':
+      return `${(mlValue / 1000).toFixed(2)}L`;
+    case 'verre':
+      return `${(mlValue / 250).toFixed(1)}v`;
+    default:
+      return `${mlValue}ml`;
+  }
+}
+
 // Mettre à jour l'affichage
 function updateDisplay() {
   const remaining = dailyGoal - currentConsumption;
   const percentage = (Math.min((currentConsumption / dailyGoal) * 100, 100));
 
-  // Texte
-  consumedAmount.textContent = `${currentConsumption}ml`;
-  remainingAmount.textContent = `${remaining}ml restant`;
+  // Texte avec unités
+  consumedAmount.textContent = formatAmount(currentConsumption);
+  remainingAmount.textContent = `${formatAmount(remaining)} restant`;
 
   // Remplissage progressif
   waterFill.style.width = `${percentage}%`;
