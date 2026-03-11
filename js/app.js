@@ -1,31 +1,3 @@
-// Charger le thème au démarrage
-function loadTheme() {
-  const isDark = localStorage.getItem('sotroyDarkTheme') === 'true';
-  applyTheme(isDark);
-}
-
-function applyTheme(isDark) {
-  if (isDark) {
-    document.documentElement.style.setProperty('--white', '#2c3e50');
-    document.documentElement.style.setProperty('--light-gray', '#34495e');
-    document.documentElement.style.setProperty('--text', '#ecf0f1');
-    document.documentElement.style.setProperty('--dark-gray', '#bdc3c7');
-    document.documentElement.style.setProperty('--medium-gray', '#4a6572');
-   } else {
-     document.documentElement.style.setProperty('--white', '#ffffff');
-     document.documentElement.style.setProperty('--light-gray', '#f8f9fa');
-    document.documentElement.style.setProperty('--text', '#2c3e50');
-    document.documentElement.style.setProperty('--dark-gray', '#343a40');
-    document.documentElement.style.setProperty('--medium-gray', '#e9ecef');
-  }
-}
-
-// Écouter les changements de thème
-window.addEventListener('settingsChanged', function() {
-  const isDark = localStorage.getItem('sotroyDarkTheme') === 'true';
-  applyTheme(isDark);
-});
-
 // Écouter les changements de données (unités, objectif)
 window.addEventListener('waterDataChanged', function() {
   const data = waterStorage.loadData();
@@ -264,6 +236,5 @@ waterButtons.forEach(button => {
 
 // Initialisation au chargement
 document.addEventListener('DOMContentLoaded', function() {
-  loadTheme();
   loadInitialData();
 })
