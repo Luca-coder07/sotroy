@@ -42,7 +42,7 @@ class SettingsManager {
 
          // Thème
          this.elements.themeToggle.checked = localStorage.getItem('sotroyDarkTheme') === 'true';
-         this.applyTheme(this.elements.themeToggle.checked);
+         applyTheme(this.elements.themeToggle.checked); // utilise la fonction globale de theme.js
      }
 
      setupEventListeners() {
@@ -137,25 +137,11 @@ class SettingsManager {
       const success = waterStorage.setTheme(isDark);
 
       if (success) {
-        this.applyTheme(isDark);
+        applyTheme(isDark); // utilise la fonction globale de theme.js
         this.showSuccessMessage('Thème mis à jour !');
       } else {
         this.showErrorMessage('Erreur lors du chargement de thème');
       }
-    }
-
-    applyTheme(isDark) {
-        if (isDark) {
-            document.documentElement.style.setProperty('--white', '#2c3e50');
-            document.documentElement.style.setProperty('--light-gray', '#34495e');
-            document.documentElement.style.setProperty('--text', '#ecf0f1');
-            document.documentElement.style.setProperty('--dark-gray', '#bdc3c7');
-        } else {
-            document.documentElement.style.setProperty('--white', '#ffffff');
-            document.documentElement.style.setProperty('--light-gray', '#f8f9fa');
-            document.documentElement.style.setProperty('--text', '#2c3e50');
-            document.documentElement.style.setProperty('--dark-gray', '#343a40');
-        }
     }
 
     toggleNotificationInterval(show) {
@@ -313,4 +299,3 @@ class SettingsManager {
 document.addEventListener('DOMContentLoaded', function() {
     new SettingsManager();
 });
-
