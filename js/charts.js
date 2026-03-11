@@ -9,31 +9,8 @@ class ChartsManager {
   }
 
   init() {
-    this.loadTheme();
     this.setupEventListeners();
     this.loadDailyData();
-  }
-
-  // Charger et appliquer le thème
-  loadTheme() {
-    const isDark = localStorage.getItem('sotroyDarkTheme') === 'true';
-    this.applyTheme(isDark);
-  }
-
-  applyTheme(isDark) {
-    if (isDark) {
-      document.documentElement.style.setProperty('--white','#2c3e50');
-      document.documentElement.style.setProperty('--light-gray','#34495e');
-      document.documentElement.style.setProperty('--text','#ecf0f1');
-      document.documentElement.style.setProperty('--dark-gray','#bdc3c7');
-      document.documentElement.style.setProperty('--medium-gray','#4a6572');
-    } else {
-      document.documentElement.style.setProperty('--white','#ffffff');
-      document.documentElement.style.setProperty('--light-gray','#f8f9fa');
-      document.documentElement.style.setProperty('--text','#2c3e50');
-      document.documentElement.style.setProperty('--dark-gray','#343a40');
-      document.documentElement.style.setProperty('--medium-gray','#e9ecef');
-    }
   }
 
    getCurrentUnit() {
@@ -60,12 +37,6 @@ class ChartsManager {
       tab.addEventListener('click', (e) => {
         this.switchTab(e.target.dataset.tab);
       });
-    });
-
-    // Ecouter les changements de thèmes
-    window.addEventListener('settingsChanged', () => {
-      const isDark = localStorage.getItem('sotroyDarkTheme') === 'true';
-      this.applyTheme(isDark);
     });
   }
 
